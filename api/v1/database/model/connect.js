@@ -1,3 +1,4 @@
+// connecting to mongoDB
 const mongoose = require("mongoose");
 
 const logSchema = mongoose.Schema({

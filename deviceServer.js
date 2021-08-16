@@ -29,10 +29,12 @@ mongoose.connection.on("connected", function (ref) {
   const deleteDevice = require("./api/v1/routes/deletedevice");
   const sensorupload = require("./api/v1/routes/sensorupload");
 
+  // connection to the rabbitmq
   amqp.connect("amqp://localhost", function (error0, connection) {
     if (error0) {
       throw error0;
     }
+    // creating channel for device queue
     connection.createChannel(function (error1, channel) {
       if (error1) {
         throw error1;
@@ -47,6 +49,7 @@ mongoose.connection.on("connected", function (ref) {
       channel.consume(queue, function reply(msg) {
         console.log(" [x] Received %s", JSON.parse(msg.content.toString()));
         msg1 = JSON.parse(msg.content.toString());
+        // serving request though service 3 functions
         const route = msg1.route;
         switch (route) {
           case "setadevice":

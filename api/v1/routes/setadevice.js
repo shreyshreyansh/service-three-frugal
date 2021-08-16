@@ -3,6 +3,7 @@ const req = require("../functions/request");
 module.exports = (channel, msg) => req(channel, msg, createDevice);
 
 const createDevice = (channel, msg, jsondata) => {
+  // get device details from the queue
   const content = JSON.parse(msg.content.toString());
   const deviceID = content.deviceID;
   const deviceType = content.deviceType;
@@ -15,9 +16,11 @@ const createDevice = (channel, msg, jsondata) => {
     deviceType: deviceType,
     datalog: [],
   };
+  // create the device
   deviceData.create(device, function (err, result) {
     if (err) {
       const r = { status: err };
+      // send the result to the queue
       channel.sendToQueue(
         msg.properties.replyTo,
         Buffer.from(JSON.stringify(r)),
@@ -27,6 +30,7 @@ const createDevice = (channel, msg, jsondata) => {
       );
       channel.ack(msg);
     } else {
+      // send the result to the queue
       channel.sendToQueue(
         msg.properties.replyTo,
         Buffer.from(JSON.stringify(result)),

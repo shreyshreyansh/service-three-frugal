@@ -2,6 +2,7 @@
 const deviceData = require("../database/model/connect");
 
 module.exports = (channel, msg1) => {
+  // get sensor data from the rabbitmq
   msg = JSON.parse(msg1.content.toString());
   var day = new Date();
   var stamp = day.toISOString();
@@ -25,6 +26,7 @@ module.exports = (channel, msg1) => {
     Value4: value4,
   };
   var deviceID = msg.deviceID;
+  // save the data into the database
   deviceData.findOne({ deviceID: deviceID }, (err, page) => {
     if (err) console.log({ status: err });
     else {
