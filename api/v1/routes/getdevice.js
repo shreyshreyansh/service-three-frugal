@@ -1,6 +1,6 @@
 const deviceData = require("../database/model/connect");
 const req = require("../functions/request");
-const authorization = ["admin"];
+const authorization = ["adminClient", "adminFlip"];
 module.exports = (channel, msg) => req(channel, msg, getdevice);
 
 const getdevice = (channel, msg, jsondata) => {

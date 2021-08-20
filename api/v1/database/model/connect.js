@@ -17,6 +17,7 @@ const deviceSchema = mongoose.Schema({
   deviceID: String,
   userID: String,
   username: String,
+  role: String,
   deviceType: String,
   datalog: [logSchema],
 });
