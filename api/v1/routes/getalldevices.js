@@ -1,12 +1,14 @@
 const deviceData = require("../database/model/connect");
 const req = require("../functions/request");
-const authorization = ["admin"];
+const authorization = ["adminClient", "adminFlip"];
 module.exports = (channel, msg) => req(channel, msg, getalldevices);
 
 const getalldevices = (channel, msg, jsondata) => {
+  console.log("test", jsondata);
   if (authorization.includes(jsondata.role)) {
     // find all the device in the database
-    deviceData.find({}, function (err, doc) {
+    var role = jsondata.role === "adminClient" ? "userClient" : "userFlip";
+    deviceData.find({ role: role }, function (err, doc) {
       if (err) {
         const r = { status: err };
         // send the result of devices to the queue
