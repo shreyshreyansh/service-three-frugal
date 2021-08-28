@@ -19,6 +19,7 @@ const deviceSchema = mongoose.Schema({
   username: String,
   role: String,
   deviceType: String,
+  nextRecharge: Date,
   datalog: [logSchema],
 });
 
