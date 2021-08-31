@@ -6,11 +6,10 @@ module.exports = (channel, msg) => req(channel, msg, deleteDevice);
 const deleteDevice = (channel, msg, jsondata) => {
   const content = JSON.parse(msg.content.toString());
   if (authorization.includes(jsondata.role)) {
-    const userID = jsondata.userid;
     var role = jsondata.role === "adminClient" ? "userClient" : "userFlip";
     // find the device and delete it
     deviceData.findOneAndDelete(
-      { userID: userID, deviceID: content.deviceID, role: role },
+      { deviceID: content.deviceID },
       function (err, result) {
         if (err) {
           const r = { status: err };

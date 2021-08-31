@@ -23,9 +23,6 @@ mongoose.connection.on("connected", function (ref) {
 
   //functions
   const setadevice = require("./api/v1/routes/setadevice");
-  const getalldevices = require("./api/v1/routes/getalldevices");
-  const getuserdevices = require("./api/v1/routes/getuserdevices");
-  const getdevice = require("./api/v1/routes/getdevice");
   const deleteDevice = require("./api/v1/routes/deletedevice");
   const sensorupload = require("./api/v1/routes/sensorupload");
   const rechargeDevice = require("./api/v1/routes/recharge");
@@ -55,15 +52,6 @@ mongoose.connection.on("connected", function (ref) {
         switch (route) {
           case "setadevice":
             setadevice(channel, msg);
-            break;
-          case "getalldevices":
-            getalldevices(channel, msg);
-            break;
-          case "getuserdevices":
-            getuserdevices(channel, msg);
-            break;
-          case "getdevice":
-            getdevice(channel, msg);
             break;
           case "deletedevice":
             deleteDevice(channel, msg);
