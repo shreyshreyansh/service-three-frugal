@@ -25,7 +25,6 @@ mongoose.connection.on("connected", function (ref) {
   const setadevice = require("./api/v1/routes/setadevice");
   const deleteDevice = require("./api/v1/routes/deletedevice");
   const sensorupload = require("./api/v1/routes/sensorupload");
-  const rechargeDevice = require("./api/v1/routes/recharge");
 
   // connection to the rabbitmq
   amqp.connect("amqp://localhost", function (error0, connection) {
@@ -58,9 +57,6 @@ mongoose.connection.on("connected", function (ref) {
             break;
           case "sensorupload":
             sensorupload(channel, msg);
-            break;
-          case "recharge":
-            rechargeDevice(channel, msg);
             break;
           default:
             console.log("Wrong Choice");
